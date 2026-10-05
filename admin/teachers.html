@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teachers | School Management System</title>
+
+  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/teachers.css">
+
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="dashboard.html">
+        <span class="brand-mark">S</span>
+        <span>School<span>Hub</span></span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="dashboard.html">⌂ <span>Dashboard</span></a>
+        <a href="students.html">♙ <span>Students</span></a>
+        <a class="active" href="teachers.html">♟ <span>Teachers</span></a>
+        <a href="attendance.html">✓ <span>Attendance</span></a>
+        <a href="results.html">▤ <span>Results / Exams</span></a>
+        <a href="classes.html">▦ <span>Classes</span></a>
+        <a href="subjects.html">▣ <span>Subjects</span></a>
+        <a href="fees.html">◈ <span>Fees</span></a>
+        <a href="reports.html">▥ <span>Reports</span></a>
+        <a href="settings.html">⚙ <span>Settings</span></a>
+      </nav>
+
+      <a class="view-site" href="index.html">↗ View public website</a>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="menu-toggle" type="button">☰</button>
+
+        <div class="page-heading">
+          <p>Administration</p>
+          <h1>Teachers</h1>
+        </div>
+
+        <div class="admin-avatar">A</div>
+      </header>
+
+      <section class="page-body">
+        <div class="intro-row">
+          <div>
+            <h2>Teachers Management</h2>
+            <p>Manage your teaching staff and their details in one place.</p>
+          </div>
+
+          <button class="primary-button" id="addTeacherButton" type="button">
+            + Add Teacher
+          </button>
+        </div>
+
+        <section class="stat-grid">
+          <article class="stat-card blue">
+            <span class="stat-icon">♟</span>
+            <div><p>Total Teachers</p><strong id="totalTeachers">0</strong></div>
+          </article>
+
+          <article class="stat-card indigo">
+            <span class="stat-icon">♂</span>
+            <div><p>Male Teachers</p><strong id="maleTeachers">0</strong></div>
+          </article>
+
+          <article class="stat-card pink">
+            <span class="stat-icon">♀</span>
+            <div><p>Female Teachers</p><strong id="femaleTeachers">0</strong></div>
+          </article>
+
+          <article class="stat-card green">
+            <span class="stat-icon">●</span>
+            <div><p>Active Teachers</p><strong id="activeTeachers">0</strong></div>
+          </article>
+        </section>
+
+        <section class="content-card">
+          <div class="card-header">
+            <div>
+              <h2>All Teachers</h2>
+              <p id="teacherCount">0 teachers</p>
+            </div>
+          </div>
+
+          <div class="toolbar">
+            <label class="search-box">
+              <span>⌕</span>
+              <input id="searchTeacher" type="search" placeholder="Search by name, ID, subject or phone">
+            </label>
+
+            <select id="departmentFilter">
+              <option value="">All departments</option>
+            </select>
+
+            <select id="statusFilter">
+              <option value="">All statuses</option>
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Teacher</th>
+                  <th>Staff ID</th>
+                  <th>Department</th>
+                  <th>Subject</th>
+                  <th>Phone</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="teachersTableBody"></tbody>
+            </table>
+          </div>
+
+          <p class="empty-state" id="emptyState" hidden>
+            No teachers match your search.
+          </p>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal" id="teacherModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div>
+          <h2 id="teacherModalTitle">Add Teacher</h2>
+          <p id="teacherModalText">Enter the teacher's information below.</p>
+        </div>
+        <button class="close-button" type="button" data-close="teacherModal">×</button>
+      </div>
+
+      <form id="teacherForm">
+        <input type="hidden" id="teacherRecordId">
+
+        <div class="form-grid">
+          <label>First Name<input id="firstName" required></label>
+          <label>Last Name<input id="lastName" required></label>
+
+          <label>Gender
+            <select id="gender" required>
+              <option value="">Select gender</option>
+              <option>Male</option>
+              <option>Female</option>
+            </select>
+          </label>
+
+          <label>Staff ID<input id="staffId" required placeholder="TCH-001"></label>
+          <label>Email<input id="email" type="email" required></label>
+          <label>Phone<input id="phone" required></label>
+          <label>Department<input id="department" required></label>
+          <label>Subject<input id="subject" required></label>
+          <label>Qualification<input id="qualification" required></label>
+
+          <label>Status
+            <select id="status" required>
+              <option>Active</option>
+              <option>Inactive</option>
+            </select>
+          </label>
+
+          <label class="full-width">
+            Address
+            <textarea id="address" rows="3"></textarea>
+          </label>
+        </div>
+
+        <p class="form-error" id="formError"></p>
+
+        <div class="modal-actions">
+          <button class="secondary-button" type="button" data-close="teacherModal">Cancel</button>
+          <button class="primary-button" type="submit" id="saveTeacherButton">Save Teacher</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="profileModal">
+    <div class="modal-dialog profile-dialog">
+      <div class="modal-header">
+        <div>
+          <h2>Teacher Profile</h2>
+          <p>Teacher information</p>
+        </div>
+        <button class="close-button" type="button" data-close="profileModal">×</button>
+      </div>
+      <div id="profileContent"></div>
+    </div>
+  </div>
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <div class="success-toast" id="successToast" role="status" aria-live="polite"></div>
+  <script src="../js/dashboard.js"></script> 
+  <script src="../js/teachers.js"></script>
+</body>
+</html>

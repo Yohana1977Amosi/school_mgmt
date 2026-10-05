@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard | School Management System</title>
+
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/style.css">
+     <link rel="stylesheet" href="../css/responsive.css">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">🎓</div>
+            <div>
+                <h2>School MS</h2>
+                <small>Management System</small>
+            </div>
+        </div>
+
+        <nav class="menu">
+
+            <a href="dashboard.html" class="menu-item active">
+                <span>📊</span>
+                Dashboard
+            </a>
+
+            <a href="students.html" class="menu-item">
+                <span>👨‍🎓</span>
+                Students
+            </a>
+
+            <a href="teachers.html" class="menu-item">
+                <span>👨‍🏫</span>
+                Teachers
+            </a>
+
+            <a href="classes.html" class="menu-item">
+                <span>🏫</span>
+                Classes
+            </a>
+
+            <a href="subjects.html" class="menu-item">
+                <span>📚</span>
+                Subjects
+            </a>
+
+            <a href="attendance.html" class="menu-item">
+                <span>📝</span>
+                Attendance
+            </a>
+
+            <a href="exams.html" class="menu-item">
+                <span>📋</span>
+                Exams
+            </a>
+
+            <a href="results.html" class="menu-item">
+                <span>📈</span>
+                Results
+            </a>
+
+            <a href="schoolFees.html" class="menu-item">
+                <span>💰</span>
+                School Fees
+            </a>
+
+            <a href="announcements.html" class="menu-item">
+                <span>📢</span>
+                Announcements
+            </a>
+
+            <a href="gallery.html" class="menu-item">
+                <span>🖼️</span>
+                Gallery
+            </a>
+
+            <a href="settings.html" class="menu-item">
+                <span>⚙️</span>
+                Settings
+            </a>
+
+        </nav>
+
+        <div class="logout">
+            <a href="../login.html">
+                🚪 Logout
+            </a>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+
+            <div class="top-left">
+                <button class="menu-toggle" onclick="toggleSidebar()">
+                    ☰
+                </button>
+
+                <div>
+                    <h1>Dashboard</h1>
+                    <p>Welcome back, Administrator</p>
+                </div>
+            </div>
+
+            <div class="top-right">
+
+                <button class="notification">
+                    🔔
+                    <span>3</span>
+                </button>
+
+                <div class="admin-profile">
+                    <div class="avatar">A</div>
+
+                    <div>
+                        <strong>Administrator</strong>
+                        <small>Super Admin</small>
+                    </div>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- DASHBOARD CONTENT -->
+        <section class="content">
+
+            <div class="welcome-box">
+                <div>
+                    <h2>Welcome to School Management System 👋</h2>
+                    <p>
+                        Manage students, teachers, attendance, examinations,
+                        results and other school activities from one place.
+                    </p>
+                </div>
+
+                <button class="primary-btn">
+                    + Add Student
+                </button>
+            </div>
+
+
+            <!-- STATISTICS -->
+            <div class="statistics">
+
+                <div class="stat-card">
+                    <div class="stat-icon students">👨‍🎓</div>
+
+                    <div>
+                        <p>Total Students</p>
+                        <h2>1,250</h2>
+                        <small>↑ 8% from last year</small>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon teachers">👨‍🏫</div>
+
+                    <div>
+                        <p>Total Teachers</p>
+                        <h2>86</h2>
+                        <small>↑ 4% from last year</small>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon classes">🏫</div>
+
+                    <div>
+                        <p>Total Classes</p>
+                        <h2>32</h2>
+                        <small>Across all levels</small>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon fees">💰</div>
+
+                    <div>
+                        <p>Fees Collected</p>
+                        <h2>TSh 84.5M</h2>
+                        <small>75% of expected fees</small>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- LOWER SECTION -->
+            <div class="dashboard-grid">
+
+                <!-- RECENT ACTIVITIES -->
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <h3>Recent Activities</h3>
+                        <a href="#">View All</a>
+                    </div>
+
+                    <div class="activity">
+
+                        <div class="activity-icon">👨‍🎓</div>
+
+                        <div>
+                            <strong>New student registered</strong>
+                            <p>John Michael joined Form One</p>
+                            <small>10 minutes ago</small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="activity">
+
+                        <div class="activity-icon">📝</div>
+
+                        <div>
+                            <strong>Exam results updated</strong>
+                            <p>Form Four Mathematics results</p>
+                            <small>1 hour ago</small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="activity">
+
+                        <div class="activity-icon">💰</div>
+
+                        <div>
+                            <strong>School fee payment</strong>
+                            <p>TSh 250,000 received</p>
+                            <small>2 hours ago</small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="activity">
+
+                        <div class="activity-icon">📢</div>
+
+                        <div>
+                            <strong>New announcement</strong>
+                            <p>Parents meeting announcement</p>
+                            <small>Yesterday</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- QUICK ACTIONS -->
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <h3>Quick Actions</h3>
+                    </div>
+
+                    <div class="quick-actions">
+
+                        <button>
+                            👨‍🎓
+                            <span>Add Student</span>
+                        </button>
+
+                        <button>
+                            👨‍🏫
+                            <span>Add Teacher</span>
+                        </button>
+
+                        <button>
+                            📝
+                            <span>Enter Results</span>
+                        </button>
+
+                        <button>
+                            📋
+                            <span>Take Attendance</span>
+                        </button>
+
+                        <button>
+                            📢
+                            <span>Announcement</span>
+                        </button>
+
+                        <button>
+                            💰
+                            <span>Record Payment</span>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ATTENDANCE OVERVIEW -->
+            <div class="panel attendance-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <h3>Today's Attendance</h3>
+                        <p>Student attendance overview</p>
+                    </div>
+
+                    <select>
+                        <option>Today</option>
+                        <option>This Week</option>
+                        <option>This Month</option>
+                    </select>
+
+                </div>
+
+
+                <div class="attendance-stats">
+
+                    <div>
+                        <span class="attendance-number present">
+                            1,080
+                        </span>
+
+                        <p>Present</p>
+                    </div>
+
+
+                    <div>
+                        <span class="attendance-number absent">
+                            95
+                        </span>
+
+                        <p>Absent</p>
+                    </div>
+
+
+                    <div>
+                        <span class="attendance-number late">
+                            50
+                        </span>
+
+                        <p>Late</p>
+                    </div>
+
+
+                    <div>
+                        <span class="attendance-number percentage">
+                            86.4%
+                        </span>
+
+                        <p>Attendance Rate</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="../js/dashboard.js"></script>
+
+</body>
+</html>

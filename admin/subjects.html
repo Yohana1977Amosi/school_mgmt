@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Subjects | School Management System</title>
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+
+    <!-- Subjects-specific CSS -->
+    <link rel="stylesheet" href="../css/subjects.css">
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <!-- =====================================
+         SIDEBAR
+    ====================================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <a class="brand" href="dashboard.html">
+            <span class="brand-mark">S</span>
+
+            <span>
+                School<span>Hub</span>
+            </span>
+        </a>
+
+
+        <nav class="nav-links">
+
+            <a href="dashboard.html">
+                ⌂
+                <span>Dashboard</span>
+            </a>
+
+            <a href="students.html">
+                ♙
+                <span>Students</span>
+            </a>
+
+            <a href="teachers.html">
+                ♟
+                <span>Teachers</span>
+            </a>
+
+            <a href="attendance.html">
+                ✓
+                <span>Attendance</span>
+            </a>
+
+            <a href="results.html">
+                ▤
+                <span>Results / Exams</span>
+            </a>
+
+            <a href="classes.html">
+                ▦
+                <span>Classes</span>
+            </a>
+
+            <a class="active" href="subjects.html">
+                ▣
+                <span>Subjects</span>
+            </a>
+
+            <a href="fees.html">
+                ◈
+                <span>Fees</span>
+            </a>
+
+            <a href="reports.html">
+                ▥
+                <span>Reports</span>
+            </a>
+
+            <a href="settings.html">
+                ⚙
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+
+        <a class="view-site" href="index.html">
+            ↗
+            <span>View public website</span>
+        </a>
+
+    </aside>
+
+
+    <!-- =====================================
+         MAIN CONTENT
+    ====================================== -->
+
+    <main class="main-content">
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <button
+                class="menu-toggle"
+                type="button"
+                aria-label="Open menu">
+
+                ☰
+
+            </button>
+
+
+            <div class="page-heading">
+
+                <p>Administration</p>
+
+                <h1>Subjects</h1>
+
+            </div>
+
+
+            <div class="admin-avatar">
+                A
+            </div>
+
+        </header>
+
+
+        <!-- =================================
+             PAGE BODY
+        ================================== -->
+
+        <section class="page-body">
+
+
+            <!-- INTRO -->
+
+            <div class="intro-row">
+
+                <div>
+
+                    <h2>
+                        Subjects Management
+                    </h2>
+
+                    <p>
+                        Manage school subjects, departments,
+                        teachers and academic levels in one place.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="primary-button"
+                    id="addSubjectButton"
+                    type="button">
+
+                    + Add Subject
+
+                </button>
+
+            </div>
+
+
+            <!-- =================================
+                 STATISTICS
+            ================================== -->
+
+            <section class="stat-grid">
+
+
+                <!-- TOTAL SUBJECTS -->
+
+                <article class="stat-card blue">
+
+                    <span class="stat-icon">
+                        ▣
+                    </span>
+
+                    <div>
+
+                        <p>
+                            Total Subjects
+                        </p>
+
+                        <strong id="totalSubjects">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+                <!-- CORE SUBJECTS -->
+
+                <article class="stat-card indigo">
+
+                    <span class="stat-icon">
+                        ★
+                    </span>
+
+                    <div>
+
+                        <p>
+                            Core Subjects
+                        </p>
+
+                        <strong id="coreSubjects">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+                <!-- ELECTIVE SUBJECTS -->
+
+                <article class="stat-card pink">
+
+                    <span class="stat-icon">
+                        ✦
+                    </span>
+
+                    <div>
+
+                        <p>
+                            Elective Subjects
+                        </p>
+
+                        <strong id="electiveSubjects">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+                <!-- ACTIVE SUBJECTS -->
+
+                <article class="stat-card green">
+
+                    <span class="stat-icon">
+                        ●
+                    </span>
+
+                    <div>
+
+                        <p>
+                            Active Subjects
+                        </p>
+
+                        <strong id="activeSubjects">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+
+            <!-- =================================
+                 SUBJECT TABLE
+            ================================== -->
+
+            <section class="content-card">
+
+
+                <!-- CARD HEADER -->
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2>
+                            All Subjects
+                        </h2>
+
+                        <p id="subjectCount">
+                            0 subjects
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     SEARCH & FILTERS
+                ================================== -->
+
+                <div class="toolbar">
+
+
+                    <!-- SEARCH -->
+
+                    <label class="search-box">
+
+                        <span>
+                            ⌕
+                        </span>
+
+                        <input
+                            id="searchSubject"
+                            type="search"
+                            placeholder="Search by subject, code, department or teacher">
+
+                    </label>
+
+
+                    <!-- LEVEL -->
+
+                    <select id="levelFilter">
+
+                        <option value="">
+                            All levels
+                        </option>
+
+                        <option value="Primary">
+                            Primary
+                        </option>
+
+                        <option value="Secondary">
+                            Secondary
+                        </option>
+
+                    </select>
+
+
+                    <!-- TYPE -->
+
+                    <select id="typeFilter">
+
+                        <option value="">
+                            All types
+                        </option>
+
+                        <option value="Core">
+                            Core
+                        </option>
+
+                        <option value="Elective">
+                            Elective
+                        </option>
+
+                    </select>
+
+
+                    <!-- STATUS -->
+
+                    <select id="statusFilter">
+
+                        <option value="">
+                            All statuses
+                        </option>
+
+                        <option value="Active">
+                            Active
+                        </option>
+
+                        <option value="Inactive">
+                            Inactive
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- =================================
+                     TABLE
+                ================================== -->
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Subject
+                                </th>
+
+                                <th>
+                                    Code
+                                </th>
+
+                                <th>
+                                    Department
+                                </th>
+
+                                <th>
+                                    Level
+                                </th>
+
+                                <th>
+                                    Type
+                                </th>
+
+                                <th>
+                                    Teacher
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Actions
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="subjectsTableBody">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <!-- EMPTY STATE -->
+
+                <p
+                    class="empty-state"
+                    id="emptyState"
+                    hidden>
+
+                    No subjects match your search.
+
+                </p>
+
+            </section>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =========================================
+     ADD / EDIT SUBJECT MODAL
+========================================== -->
+
+<div
+    class="modal"
+    id="subjectModal">
+
+
+    <div class="modal-dialog">
+
+
+        <!-- MODAL HEADER -->
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2 id="subjectModalTitle">
+                    Add Subject
+                </h2>
+
+                <p id="subjectModalText">
+                    Enter the subject information below.
+                </p>
+
+            </div>
+
+
+            <button
+                class="close-button"
+                type="button"
+                data-close="subjectModal"
+                aria-label="Close">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <!-- =================================
+             SUBJECT FORM
+        ================================== -->
+
+        <form id="subjectForm">
+
+
+            <input
+                type="hidden"
+                id="subjectRecordId">
+
+
+            <div class="form-grid">
+
+
+                <!-- SUBJECT NAME -->
+
+                <label>
+
+                    Subject Name
+
+                    <input
+                        id="subjectName"
+                        type="text"
+                        placeholder="e.g. Mathematics"
+                        required>
+
+                </label>
+
+
+                <!-- SUBJECT CODE -->
+
+                <label>
+
+                    Subject Code
+
+                    <input
+                        id="subjectCode"
+                        type="text"
+                        placeholder="e.g. MAT"
+                        required>
+
+                </label>
+
+
+                <!-- DEPARTMENT -->
+
+                <label>
+
+                    Department
+
+                    <input
+                        id="department"
+                        type="text"
+                        placeholder="e.g. Science"
+                        required>
+
+                </label>
+
+
+                <!-- LEVEL -->
+
+                <label>
+
+                    Level
+
+                    <select
+                        id="level"
+                        required>
+
+                        <option value="">
+                            Select level
+                        </option>
+
+                        <option value="Primary">
+                            Primary
+                        </option>
+
+                        <option value="Secondary">
+                            Secondary
+                        </option>
+
+                    </select>
+
+                </label>
+
+
+                <!-- TYPE -->
+
+                <label>
+
+                    Subject Type
+
+                    <select
+                        id="subjectType"
+                        required>
+
+                        <option value="">
+                            Select type
+                        </option>
+
+                        <option value="Core">
+                            Core
+                        </option>
+
+                        <option value="Elective">
+                            Elective
+                        </option>
+
+                    </select>
+
+                </label>
+
+
+                <!-- TEACHER -->
+
+                <label>
+             Assigned Teacher
+
+    <select id="teacher" required>
+        <option value="">
+            Select teacher
+        </option>
+    </select>
+
+               </label>
+
+                <!-- STATUS -->
+
+                <label>
+
+                    Status
+
+                    <select
+                        id="status"
+                        required>
+
+                        <option value="Active">
+                            Active
+                        </option>
+
+                        <option value="Inactive">
+                            Inactive
+                        </option>
+
+                    </select>
+
+                </label>
+
+
+                <!-- DESCRIPTION -->
+
+                <label class="full-width">
+
+                    Description
+
+                    <textarea
+                        id="description"
+                        rows="3"
+                        placeholder="Short description about this subject...">
+                    </textarea>
+
+                </label>
+
+            </div>
+
+
+            <!-- FORM ERROR -->
+
+            <p
+                class="form-error"
+                id="formError">
+            </p>
+
+
+            <!-- FORM ACTIONS -->
+
+            <div class="modal-actions">
+
+                <button
+                    class="secondary-button"
+                    type="button"
+                    data-close="subjectModal">
+
+                    Cancel
+
+                </button>
+
+
+                <button
+                    class="primary-button"
+                    type="submit"
+                    id="saveSubjectButton">
+
+                    Save Subject
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     SUBJECT PROFILE MODAL
+========================================== -->
+
+<div
+    class="modal"
+    id="profileModal">
+
+
+    <div class="modal-dialog profile-dialog">
+
+
+        <!-- PROFILE HEADER -->
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2>
+                    Subject Profile
+                </h2>
+
+                <p>
+                    Subject information
+                </p>
+
+            </div>
+
+
+            <button
+                class="close-button"
+                type="button"
+                data-close="profileModal"
+                aria-label="Close">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <!-- PROFILE CONTENT -->
+
+        <div id="profileContent">
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     SIDEBAR OVERLAY
+========================================== -->
+
+<div
+    class="sidebar-overlay"
+    id="sidebarOverlay">
+</div>
+
+
+<!-- =========================================
+     SUCCESS TOAST
+========================================== -->
+
+<div
+    class="success-toast"
+    id="successToast"
+    role="status"
+    aria-live="polite">
+</div>
+
+
+<!-- =========================================
+     JAVASCRIPT
+========================================== -->
+
+<script src="../js/dashboard.js"></script>
+
+<script src="../js/subjects.js"></script>
+
+
+</body>
+</html>
