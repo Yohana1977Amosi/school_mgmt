@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Attendance | School Management System</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/attendance.css">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">🎓</div>
+            <div>
+                <h2>School MS</h2>
+                <small>Management System</small>
+            </div>
+        </div>
+
+        <nav class="menu" aria-label="Main navigation">
+            <a href="dashboard.html" class="menu-item"><span>📊</span>Dashboard</a>
+            <a href="students.html" class="menu-item"><span>👨‍🎓</span>Students</a>
+            <a href="teachers.html" class="menu-item"><span>👨‍🏫</span>Teachers</a>
+            <a href="classes.html" class="menu-item"><span>🏫</span>Classes</a>
+            <a href="subjects.html" class="menu-item"><span>📚</span>Subjects</a>
+            <a href="attendance.html" class="menu-item active" aria-current="page"><span>📝</span>Attendance</a>
+            <a href="exams.html" class="menu-item"><span>📋</span>Exams</a>
+            <a href="results.html" class="menu-item"><span>📈</span>Results</a>
+            <a href="schoolFees.html" class="menu-item"><span>💰</span>School Fees</a>
+            <a href="announcements.html" class="menu-item"><span>📢</span>Announcements</a>
+            <a href="gallery.html" class="menu-item"><span>🖼️</span>Gallery</a>
+            <a href="settings.html" class="menu-item"><span>⚙️</span>Settings</a>
+        </nav>
+
+        <div class="logout">
+            <a href="../login.html">🚪 Logout</a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div class="top-left">
+                <button class="menu-toggle" type="button" onclick="toggleSidebar()" aria-label="Toggle navigation">☰</button>
+                <div>
+                    <h1>Attendance</h1>
+                    <p>Record and review student attendance</p>
+                </div>
+            </div>
+
+            <div class="top-right">
+                <div class="admin-profile">
+                    <div class="avatar">A</div>
+                    <div>
+                        <strong>Administrator</strong>
+                        <small>Super Admin</small>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="content attendance-page">
+            <div class="attendance-heading">
+                <div>
+                    <span class="page-label">STUDENT MANAGEMENT</span>
+                    <h2>Daily Attendance</h2>
+                    <p>Take attendance for Ordinary Level (Forms 1–4) or Advanced Level (Forms 5–6).</p>
+                </div>
+                <button class="attendance-button" type="button" id="printAttendance">🖨 Print Register</button>
+            </div>
+
+            <div class="attendance-toolbar" aria-label="Attendance filters">
+                <div class="attendance-field">
+                    <label for="attendanceDate">Attendance date</label>
+                    <input type="date" id="attendanceDate">
+                </div>
+
+                <div class="attendance-field">
+                    <label for="levelFilter">School level</label>
+                    <select id="levelFilter">
+                        <option value="ordinary">Ordinary Level</option>
+                        <option value="advanced">Advanced Level</option>
+                    </select>
+                </div>
+
+                <div class="attendance-field">
+                    <label for="classFilter">Class</label>
+                    <select id="classFilter">
+                        <option value="all">All classes</option>
+                    </select>
+                </div>
+
+                <div class="attendance-field">
+                    <label for="sessionFilter">Session</label>
+                    <select id="sessionFilter">
+                        <option value="Morning">Morning</option>
+                        <option value="Afternoon">Afternoon</option>
+                        <option value="Full day">Full day</option>
+                    </select>
+                </div>
+
+                <div class="attendance-field">
+                    <label for="streamFilter">Stream</label>
+                    <select id="streamFilter">
+                        <option value="all">All streams</option>
+                        <option value="A">Stream A</option>
+                        <option value="B">Stream B</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="attendance-stats-grid" aria-live="polite">
+                <article class="attendance-stat-card">
+                    <div class="attendance-stat-icon">👥</div>
+                    <div><span>Students in view</span><strong id="totalCount">0</strong></div>
+                </article>
+                <article class="attendance-stat-card">
+                    <div class="attendance-stat-icon green">✓</div>
+                    <div><span>Present</span><strong id="presentCount">0</strong></div>
+                </article>
+                <article class="attendance-stat-card">
+                    <div class="attendance-stat-icon red">×</div>
+                    <div><span>Absent</span><strong id="absentCount">0</strong></div>
+                </article>
+                <article class="attendance-stat-card">
+                    <div class="attendance-stat-icon amber">%</div>
+                    <div><span>Attendance rate</span><strong id="attendanceRate">0%</strong></div>
+                </article>
+            </div>
+
+            <section class="attendance-panel" aria-labelledby="registerTitle">
+                <div class="attendance-panel-heading">
+                    <div>
+                        <h3 id="registerTitle">Class Register</h3>
+                        <p id="registerDescription">Select a level, class and session, then record each student's status.</p>
+                    </div>
+                    <div class="attendance-actions">
+                        <div class="attendance-search">
+                            <label class="sr-only" for="studentSearch">Search students</label>
+                            <input type="search" id="studentSearch" placeholder="Search name or admission no.">
+                        </div>
+                        <button class="attendance-button" type="button" id="markAllPresent">Mark all present</button>
+                        <button class="attendance-button primary" type="button" id="saveAttendance">Save attendance</button>
+                    </div>
+                </div>
+
+                <div class="attendance-table-wrap">
+                    <table class="attendance-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Student</th>
+                                <th scope="col">Admission no.</th>
+                                <th scope="col">Class / Stream</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Note (optional)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendanceRows"></tbody>
+                    </table>
+                </div>
+
+                <div class="attendance-footer">
+                    <span id="visibleCount">Showing 0 students</span>
+                    <span class="attendance-message" id="attendanceMessage" role="status" aria-live="polite"></span>
+                </div>
+            </section>
+
+            <p class="attendance-hint">
+                Attendance records are saved in this browser on this device. Connect this page to your school's
+                database or server to share records across devices and users.
+            </p>
+        </section>
+    </main>
+</div>
+
+<script src="../js/dashboard.js"></script>
+<script src="../js/attendance.js" defer></script>
+</body>
+</html>
