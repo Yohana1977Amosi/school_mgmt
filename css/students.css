@@ -143,8 +143,10 @@
     padding: 22px;
 
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
+    gap: 18px 24px;
 
     border-bottom: 1px solid #eef0f4;
 }
@@ -162,11 +164,17 @@
 .student-tools {
     display: flex;
     align-items: center;
+    flex: 1 1 620px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
     gap: 10px;
+    min-width: 0;
 }
 
 .search-box {
     width: 230px;
+    flex: 1 1 200px;
+    min-width: 0;
 
     display: flex;
     align-items: center;
@@ -193,6 +201,8 @@
 }
 
 .student-tools select {
+    flex: 1 1 140px;
+    min-width: 0;
     border: 1px solid #e2e8f0;
 
     padding: 10px;
@@ -213,13 +223,17 @@
 }
 
 .bulk-delete-btn {
+    box-sizing: border-box;
+    max-width: 100%;
+    flex: 0 1 auto;
     border: 1px solid #fecaca;
     border-radius: 8px;
     background: #fff;
     color: #b91c1c;
     cursor: pointer;
     padding: 10px 13px;
-    white-space: nowrap;
+    text-align: center;
+    white-space: normal;
 }
 
 .bulk-delete-btn:hover:not(:disabled) {
@@ -608,6 +622,21 @@
 
 /* MOBILE */
 
+@media (max-width: 1200px) {
+
+    .table-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .student-tools {
+        width: 100%;
+        flex: 0 1 auto;
+        align-content: flex-start;
+        justify-content: flex-start;
+    }
+}
+
 @media (max-width: 900px) {
 
     .student-summary {
@@ -653,8 +682,13 @@
     }
 
     .student-tools select,
-    .filter-btn {
+    .filter-btn,
+    .bulk-delete-btn {
         width: 100%;
+    }
+
+    .bulk-delete-btn {
+        white-space: normal;
     }
 
     .form-grid {
