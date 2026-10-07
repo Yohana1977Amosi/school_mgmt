@@ -212,6 +212,26 @@
     border-radius: 8px;
 }
 
+.bulk-delete-btn {
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    background: #fff;
+    color: #b91c1c;
+    cursor: pointer;
+    padding: 10px 13px;
+    white-space: nowrap;
+}
+
+.bulk-delete-btn:hover:not(:disabled) {
+    background: #fef2f2;
+}
+
+.bulk-delete-btn:disabled {
+    color: #94a3b8;
+    border-color: #e2e8f0;
+    cursor: not-allowed;
+}
+
 
 /* TABLE */
 
@@ -480,6 +500,12 @@
 
 #studentForm {
     padding: 22px;
+}
+
+.form-error {
+    color: #b91c1c;
+    font-size: 13px;
+    margin-top: 14px;
 }
 
 .form-grid {
@@ -1567,4 +1593,3 @@
         padding: 20px;
     }
 }
-

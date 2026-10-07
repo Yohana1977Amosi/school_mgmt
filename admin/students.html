@@ -299,6 +299,13 @@
 
                         </select>
 
+                        <button
+                            type="button"
+                            class="bulk-delete-btn"
+                            id="deleteSelectedStudents"
+                            disabled>
+                            Delete selected (0)
+                        </button>
 
                         <button class="filter-btn">
                             ⚙ Filter
@@ -319,7 +326,10 @@
                             <tr>
 
                                 <th>
-                                    <input type="checkbox">
+                                    <input
+                                        type="checkbox"
+                                        id="selectAllStudents"
+                                        aria-label="Select all visible students">
                                 </th>
 
                                 <th>Student</th>
@@ -861,8 +871,7 @@
 
                     <input
                         type="text" name="admissionNumber"
-                        placeholder="e.g. ADM001249"
-                        required>
+                        placeholder="Leave blank to generate automatically">
 
                 </div>
 
@@ -911,6 +920,8 @@
 
             </div>
 
+
+            <p class="form-error" id="formError" role="alert" aria-live="polite"></p>
 
             <div class="modal-footer">
 

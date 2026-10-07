@@ -9,6 +9,9 @@ body{
 background:#f4f4f4;
 font-family: Arial, Helvetica, sans-serif;
 color: #1f2937;
+min-height:100vh;
+display:flex;
+flex-direction:column;
 }
 html{
     scroll-behavior: smooth;
@@ -19,6 +22,8 @@ color:white;
 display:flex;
 justify-content:space-between;
 align-items:center;
+flex-wrap:wrap;
+gap:15px 30px;
 padding:15px 50px;
 }
 
@@ -38,7 +43,8 @@ font-weight:bold;
 }
 
 .hero{
-height:500px;
+width:100%;
+min-height:500px;
 background:#0066cc;
 color:white;
 display:flex;
@@ -70,15 +76,22 @@ border-radius:5px;
 }
 
 .features{
+width:100%;
+flex:1;
+background:#eef4fa;
 padding:50px;
 text-align:center;
 }
 
 .cards{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));
 gap:20px;
 margin-top:40px;
+width:100%;
+max-width:1200px;
+margin-left:auto;
+margin-right:auto;
 }
 
 .card{
@@ -98,7 +111,7 @@ background:#004080;
 color:white;
 text-align:center;
 padding:20px;
-margin-top:50px;
+margin-top:auto;
 }
 img{
     max-width: 100%;
@@ -107,4 +120,29 @@ img{
 .amaze{
     color: goldenrod;
     border-bottom: red;
+}
+
+@media (max-width: 700px) {
+    header {
+        justify-content: center;
+        padding: 15px 20px;
+    }
+
+    nav ul {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px 18px;
+    }
+
+    nav ul li {
+        margin-left: 0;
+    }
+
+    .hero h1 {
+        font-size: clamp(28px, 7vw, 45px);
+    }
+
+    .features {
+        padding: 35px 20px;
+    }
 }

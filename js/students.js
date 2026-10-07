@@ -75,10 +75,16 @@ function loadStudents() {
 
 function saveStudents() {
 
-    localStorage.setItem(
-        studentStorageKey,
-        JSON.stringify(students)
-    );
+    try {
+        localStorage.setItem(
+            studentStorageKey,
+            JSON.stringify(students)
+        );
+        return true;
+    } catch (error) {
+        console.error("Unable to save students:", error);
+        return false;
+    }
 }
 
 
@@ -513,6 +519,10 @@ function openStudentModal() {
         $("studentModal");
 
     if (modal) {
+        const formError = $("formError");
+        if (formError) {
+            formError.textContent = "";
+        }
 
         modal.classList.add(
             "show"
@@ -667,6 +677,7 @@ function displayStudents(
         updateStudentStatistics();
 
         updateStudentCountText();
+        updateBulkStudentSelection();
 
         return;
     }
@@ -708,10 +719,15 @@ function displayStudents(
                     "tr"
                 );
 
-
             row.innerHTML = `
                 <td>
-                    <input type="checkbox">
+                    <input
+                        type="checkbox"
+                        class="student-select-checkbox"
+                        value="${realIndex}"
+                        aria-label="Select ${escapeHtml(
+                            `${firstName} ${lastName}`.trim() || "student"
+                        )}">
                 </td>
 
                 <td>
@@ -829,6 +845,150 @@ function displayStudents(
     updateStudentStatistics();
 
     updateStudentCountText();
+    updateBulkStudentSelection();
+}
+
+
+function updateBulkStudentSelection() {
+
+    const table =
+        $("studentsTable");
+
+    const deleteButton =
+        $("deleteSelectedStudents");
+
+    const selectAll =
+        $("selectAllStudents");
+
+    if (!table || !deleteButton || !selectAll) {
+        return;
+    }
+
+    const checkboxes = Array.from(
+        table.querySelectorAll(
+            "tbody .student-select-checkbox"
+        )
+    );
+    const selectedCount = checkboxes.filter(
+        function (checkbox) {
+            return checkbox.checked;
+        }
+    ).length;
+
+    deleteButton.textContent =
+        `Delete selected (${selectedCount})`;
+    deleteButton.disabled =
+        selectedCount === 0;
+
+    selectAll.checked =
+        checkboxes.length > 0 &&
+        selectedCount === checkboxes.length;
+    selectAll.indeterminate =
+        selectedCount > 0 &&
+        selectedCount < checkboxes.length;
+}
+
+
+function setupBulkStudentDelete() {
+
+    const table =
+        $("studentsTable");
+
+    const selectAll =
+        $("selectAllStudents");
+
+    const deleteButton =
+        $("deleteSelectedStudents");
+
+    if (!table || !selectAll || !deleteButton) {
+        console.error(
+            "Bulk student delete controls are missing from the page."
+        );
+        return;
+    }
+
+    selectAll.addEventListener(
+        "change",
+        function () {
+            table.querySelectorAll(
+                "tbody .student-select-checkbox"
+            ).forEach(
+                function (checkbox) {
+                    checkbox.checked = selectAll.checked;
+                }
+            );
+            updateBulkStudentSelection();
+        }
+    );
+
+    table.addEventListener(
+        "change",
+        function (event) {
+            if (
+                event.target.matches(
+                    ".student-select-checkbox"
+                )
+            ) {
+                updateBulkStudentSelection();
+            }
+        }
+    );
+
+    deleteButton.addEventListener(
+        "click",
+        function () {
+            const selectedIndexes = Array.from(
+                table.querySelectorAll(
+                    "tbody .student-select-checkbox:checked"
+                )
+            )
+                .map(function (checkbox) {
+                    return Number(checkbox.value);
+                })
+                .filter(function (index) {
+                    return Number.isInteger(index) &&
+                        index >= 0 &&
+                        index < students.length;
+                });
+
+            if (selectedIndexes.length === 0) {
+                updateBulkStudentSelection();
+                return;
+            }
+
+            const confirmed = confirm(
+                `Delete ${selectedIndexes.length} selected student(s)? This cannot be undone.`
+            );
+
+            if (!confirmed) {
+                return;
+            }
+
+            const selectedIndexSet =
+                new Set(selectedIndexes);
+            const originalStudents = students;
+
+            students = students.filter(
+                function (student, index) {
+                    return !selectedIndexSet.has(index);
+                }
+            );
+
+            if (!saveStudents()) {
+                students = originalStudents;
+                alert(
+                    "Unable to delete the selected students because the changes could not be saved."
+                );
+                return;
+            }
+
+            syncClassStudentCounts();
+            displayStudents();
+            alert(
+                `${selectedIndexes.length} student(s) deleted successfully.`
+            );
+        }
+    );
 }
 
 
@@ -864,13 +1024,19 @@ function setupStudentForm() {
                     studentForm
                 );
 
+            const formError =
+                $("formError");
+
+            if (formError) {
+                formError.textContent = "";
+            }
 
             /* =========================================
                GET SELECTED CLASS ID
                ========================================= */
 
             const classId =
-                $("className").value;
+                $("studentClass").value;
 
 
             /* =========================================
@@ -887,9 +1053,10 @@ function setupStudentForm() {
 
             if (!selectedClass) {
 
-                const formError =
-                    $("formError").textContent =
+                if (formError) {
+                    formError.textContent =
                         "Please select a valid class.";
+                }
 
                 return;
             }
@@ -1017,9 +1184,10 @@ function setupStudentForm() {
 
             if (duplicate) {
 
-                alert(
-                    "Admission Number tayari ipo. Tafadhali tumia nyingine."
-                );
+                if (formError) {
+                    formError.textContent =
+                        "That admission number is already in use. Please enter a different number.";
+                }
 
                 return;
             }
@@ -1038,7 +1206,14 @@ function setupStudentForm() {
                SAVE
                ========================================= */
 
-            saveStudents();
+            if (!saveStudents()) {
+                students.pop();
+                if (formError) {
+                    formError.textContent =
+                        "Unable to save the student. Please check browser storage and try again.";
+                }
+                return;
+            }
 
 
             /* =========================================
@@ -1953,6 +2128,7 @@ document.addEventListener(
         setupStudentForm();
 
         setupEditStudentForm();
+        setupBulkStudentDelete();
 
 
         /* 6. Display students */
