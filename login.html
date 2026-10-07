@@ -1,74 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Login | Smart School Management System</title>
-
-<link rel="stylesheet" href="css/login.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Smart School Management System</title>
+    <link rel="stylesheet" href="css/login.css">
 </head>
-
 <body>
+    <main class="login-container">
+        <section class="login-box" aria-labelledby="loginTitle">
+            <h1 id="loginTitle">SMART SCHOOL</h1>
+            <h2>Management System</h2>
 
-<div class="login-container">
+            <form id="loginForm">
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" placeholder="Enter username" autocomplete="username" required>
 
-<div class="login-box">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" placeholder="Enter password" autocomplete="current-password" required>
 
-<h1>SMART SCHOOL</h1>
+                <label for="userType">User Type</label>
+                <select id="userType" name="userType" required>
+                    <option value="Administrator">Administrator</option>
+                    <option value="Head Teacher">Head Teacher</option>
+                    <option value="Academic Teacher">Academic Teacher</option>
+                    <option value="Teacher">Teacher</option>
+                    <option value="Bursar">Bursar</option>
+                    <option value="Librarian">Librarian</option>
+                    <option value="Parent">Parent</option>
+                    <option value="Student">Student</option>
+                </select>
 
-<h3>Management System</h3>
+                <button type="submit" class="primary-button">LOGIN</button>
+            </form>
 
-<form>
+            <p id="loginMessage" class="form-message" role="status" aria-live="polite"></p>
+            <button type="button" class="text-button" id="showForgotPassword">Forgot Password?</button>
 
-<label>Username</label>
-
-<input type="text" placeholder="Enter Username" required>
-
-<label>Password</label>
-
-<input type="password" placeholder="Enter Password" required>
-
-<label>User Type</label>
-
-<select>
-
-<option>Administrator</option>
-
-<option>Head Teacher</option>
-
-<option>Academic Teacher</option>
-
-<option>Teacher</option>
-
-<option>Bursar</option>
-
-<option>Librarian</option>
-
-<option>Parent</option>
-
-<option>Student</option>
-
-</select>
-
-<button type="submit">
-
-LOGIN
-
-</button>
-
-</form>
-
-<p>
-
-Forgot Password?
-
-</p>
-
-</div>
-
-</div>
-
+            <form id="forgotPasswordForm" hidden>
+                <h2>Reset your password</h2>
+                <p>Enter the email address linked to your account. If it matches, we’ll email you a reset link.</p>
+                <label for="resetEmail">Account email</label>
+                <input id="resetEmail" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+                <button type="submit" class="primary-button">Send reset link</button>
+                <button type="button" class="text-button" id="backToLogin">Back to login</button>
+                <p id="resetRequestMessage" class="form-message" role="status" aria-live="polite"></p>
+            </form>
+        </section>
+    </main>
+    <script src="js/login.js" defer></script>
 </body>
 </html>
