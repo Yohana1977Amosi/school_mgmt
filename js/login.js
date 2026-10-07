@@ -3,10 +3,15 @@
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("loginForm");
     const forgotForm = document.getElementById("forgotPasswordForm");
+    const createAccountForm = document.getElementById("createAccountForm");
     const showForgotButton = document.getElementById("showForgotPassword");
     const backToLoginButton = document.getElementById("backToLogin");
+    const showCreateAccountButton = document.getElementById("showCreateAccount");
+    const backFromCreateAccountButton = document.getElementById("backFromCreateAccount");
+    const loginLinks = document.getElementById("loginLinks");
     const loginMessage = document.getElementById("loginMessage");
     const resetMessage = document.getElementById("resetRequestMessage");
+    const createAccountMessage = document.getElementById("createAccountMessage");
 
     function setMessage(element, message, type) {
         element.textContent = message;
@@ -16,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     showForgotButton.addEventListener("click", () => {
         loginForm.hidden = true;
-        showForgotButton.hidden = true;
+        loginLinks.hidden = true;
         forgotForm.hidden = false;
         forgotForm.reset();
         setMessage(resetMessage, "", "");
@@ -26,7 +31,23 @@ document.addEventListener("DOMContentLoaded", () => {
     backToLoginButton.addEventListener("click", () => {
         forgotForm.hidden = true;
         loginForm.hidden = false;
-        showForgotButton.hidden = false;
+        loginLinks.hidden = false;
+        document.getElementById("username").focus();
+    });
+
+    showCreateAccountButton.addEventListener("click", () => {
+        loginForm.hidden = true;
+        loginLinks.hidden = true;
+        createAccountForm.hidden = false;
+        createAccountForm.reset();
+        setMessage(createAccountMessage, "", "");
+        document.getElementById("newUsername").focus();
+    });
+
+    backFromCreateAccountButton.addEventListener("click", () => {
+        createAccountForm.hidden = true;
+        loginForm.hidden = false;
+        loginLinks.hidden = false;
         document.getElementById("username").focus();
     });
 
@@ -37,20 +58,14 @@ document.addEventListener("DOMContentLoaded", () => {
         setMessage(loginMessage, "", "");
 
         try {
-            const response = await fetch("/api/auth/login", {
+            const result = await window.schoolAuth.request("/api/auth/login", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
+                body: {
                     username: document.getElementById("username").value,
                     password: document.getElementById("password").value,
                     userType: document.getElementById("userType").value
-                })
+                }
             });
-            const result = await response.json();
-
-            if (!response.ok) {
-                throw new Error(result.error || "Unable to sign in.");
-            }
 
             window.location.assign(result.redirect);
         } catch (error) {
@@ -73,24 +88,64 @@ document.addEventListener("DOMContentLoaded", () => {
         setMessage(resetMessage, "", "");
 
         try {
-            const response = await fetch("/api/auth/request-password-reset", {
+            const result = await window.schoolAuth.request("/api/auth/request-password-reset", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
+                body: {
                     email: document.getElementById("resetEmail").value
-                })
+                }
             });
-            const result = await response.json();
-
-            if (!response.ok) {
-                throw new Error(result.error || "Unable to request a reset link.");
-            }
 
             setMessage(resetMessage, result.message, "success");
             forgotForm.reset();
         } catch (error) {
             setMessage(
                 resetMessage,
+                error instanceof TypeError
+                    ? "Unable to reach the server. Check your connection and try again."
+                    : error.message,
+                "error"
+            );
+        } finally {
+            submitButton.disabled = false;
+        }
+    });
+
+    createAccountForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const submitButton = createAccountForm.querySelector('button[type="submit"]');
+        const password = document.getElementById("newAccountPassword").value;
+        const confirmPassword = document.getElementById("confirmAccountPassword").value;
+        submitButton.disabled = true;
+        setMessage(createAccountMessage, "", "");
+
+        if (password !== confirmPassword) {
+            setMessage(createAccountMessage, "The passwords do not match.", "error");
+            submitButton.disabled = false;
+            return;
+        }
+
+        try {
+            const result = await window.schoolAuth.request("/api/auth/register", {
+                method: "POST",
+                body: {
+                    username: document.getElementById("newUsername").value,
+                    email: document.getElementById("newEmail").value,
+                    password,
+                    userType: document.getElementById("newUserType").value
+                }
+            });
+
+            createAccountForm.reset();
+            document.getElementById("username").value = result.username;
+            document.getElementById("userType").value = result.userType;
+            createAccountForm.hidden = true;
+            loginForm.hidden = false;
+            loginLinks.hidden = false;
+            setMessage(loginMessage, "Account created. Sign in with your new username and password.", "success");
+            document.getElementById("password").focus();
+        } catch (error) {
+            setMessage(
+                createAccountMessage,
                 error instanceof TypeError
                     ? "Unable to reach the server. Check your connection and try again."
                     : error.message,

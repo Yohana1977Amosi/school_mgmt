@@ -63,6 +63,7 @@ const ROLES = [
     "Parent",
     "Student"
 ];
+const SELF_REGISTRATION_ROLES = ["Parent", "Student"];
 
 const SESSION_LIFETIME_MS = 8 * 60 * 60 * 1000;
 const RESET_TOKEN_LIFETIME_MS = 30 * 60 * 1000;
@@ -221,6 +222,15 @@ function requireLogin(req, res, next) {
     next();
 }
 
+function requireStaffRole(req, res, next) {
+    if (SELF_REGISTRATION_ROLES.includes(req.user.role)) {
+        res.redirect("/");
+        return;
+    }
+
+    next();
+}
+
 function jsonRateLimit(maxRequests) {
     return rateLimit({
         windowMs: 15 * 60 * 1000,
@@ -252,8 +262,49 @@ app.get("/reset-password.html", (req, res) => {
 app.use(
     "/admin",
     requireLogin,
+    requireStaffRole,
     express.static(path.join(__dirname, "admin"), { index: false })
 );
+
+app.post("/api/auth/register", jsonRateLimit(5), (req, res) => {
+    const { username, email, password, userType } = req.body || {};
+
+    // Public sign-up can create only low-privilege accounts; staff accounts must use the administrator CLI.
+    if (!SELF_REGISTRATION_ROLES.includes(userType)) {
+        res.status(400).json({
+            error: "Self-registration is available for Student and Parent accounts only."
+        });
+        return;
+    }
+
+    try {
+        createAccount({ username, email, password, role: userType });
+    } catch (error) {
+        if (error.code === "SQLITE_CONSTRAINT_UNIQUE") {
+            res.status(409).json({
+                error: "That username or email is already registered. Try signing in or use different details."
+            });
+            return;
+        }
+
+        if (
+            error.message.startsWith("Username must") ||
+            error.message.startsWith("Enter a valid email") ||
+            error.message.startsWith("Password must")
+        ) {
+            res.status(400).json({ error: error.message });
+            return;
+        }
+
+        throw error;
+    }
+
+    res.status(201).json({
+        username: String(username).trim(),
+        userType,
+        message: "Account created. You can now sign in."
+    });
+});
 
 app.post("/api/auth/login", jsonRateLimit(10), (req, res) => {
     const { username, password, userType } = req.body || {};
@@ -300,7 +351,11 @@ app.post("/api/auth/login", jsonRateLimit(10), (req, res) => {
         "Set-Cookie",
         sessionCookie(sessionToken, SESSION_LIFETIME_MS / 1000)
     );
-    res.json({ redirect: "/admin/dashboard.html" });
+    res.json({
+        redirect: SELF_REGISTRATION_ROLES.includes(user.role)
+            ? "/index.html"
+            : "/admin/dashboard.html"
+    });
 });
 
 app.get("/logout", (req, res) => {
@@ -462,4 +517,10 @@ if (require.main === module) {
     });
 }
 
-module.exports = { app, createAccount, database, ROLES };
+module.exports = {
+    app,
+    createAccount,
+    database,
+    ROLES,
+    SELF_REGISTRATION_ROLES
+};

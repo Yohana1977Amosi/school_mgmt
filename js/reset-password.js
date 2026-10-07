@@ -32,16 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
         showMessage("", false);
 
         try {
-            const response = await fetch("/api/auth/reset-password", {
+            const result = await window.schoolAuth.request("/api/auth/reset-password", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ token, password })
+                body: { token, password }
             });
-            const result = await response.json();
-
-            if (!response.ok) {
-                throw new Error(result.error || "Unable to change the password.");
-            }
 
             form.hidden = true;
             showMessage(result.message, false);
