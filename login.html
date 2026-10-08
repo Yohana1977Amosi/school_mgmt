@@ -51,26 +51,40 @@
             </form>
 
             <form id="createAccountForm" hidden>
-                <h2>Create an account</h2>
-                <p>Self-registration is available for students and parents. Staff accounts must be created by an administrator.</p>
+                <div class="account-form-heading">
+                    <h2>Create an account</h2>
+                    <p>Self-registration is available for students and parents. Staff accounts must be created by an administrator.</p>
+                </div>
 
-                <label for="newUsername">Username</label>
-                <input id="newUsername" name="username" type="text" minlength="3" maxlength="64" pattern="[\p{L}\p{N}._-]+" title="Use letters, numbers, dots, underscores, or hyphens." autocomplete="username" required>
+                <div class="account-form-fields">
+                    <div class="account-field">
+                        <label for="newUsername">Username</label>
+                        <input id="newUsername" name="username" type="text" minlength="3" maxlength="64" pattern="[\p{L}\p{N}._-]+" title="Use letters, numbers, dots, underscores, or hyphens." autocomplete="username" required>
+                    </div>
 
-                <label for="newEmail">Email</label>
-                <input id="newEmail" name="email" type="email" maxlength="254" autocomplete="email" required>
+                    <div class="account-field">
+                        <label for="newEmail">Email</label>
+                        <input id="newEmail" name="email" type="email" maxlength="254" autocomplete="email" required>
+                    </div>
 
-                <label for="newUserType">Account type</label>
-                <select id="newUserType" name="userType" required>
-                    <option value="Student">Student</option>
-                    <option value="Parent">Parent</option>
-                </select>
+                    <div class="account-field">
+                        <label for="newUserType">Account type</label>
+                        <select id="newUserType" name="userType" required>
+                            <option value="Student">Student</option>
+                            <option value="Parent">Parent</option>
+                        </select>
+                    </div>
 
-                <label for="newAccountPassword">Password</label>
-                <input id="newAccountPassword" name="password" type="password" minlength="12" maxlength="1024" autocomplete="new-password" required>
+                    <div class="account-field">
+                        <label for="newAccountPassword">Password</label>
+                        <input id="newAccountPassword" name="password" type="password" minlength="12" maxlength="1024" autocomplete="new-password" required>
+                    </div>
 
-                <label for="confirmAccountPassword">Confirm password</label>
-                <input id="confirmAccountPassword" name="confirmPassword" type="password" minlength="12" maxlength="1024" autocomplete="new-password" required>
+                    <div class="account-field">
+                        <label for="confirmAccountPassword">Confirm password</label>
+                        <input id="confirmAccountPassword" name="confirmPassword" type="password" minlength="12" maxlength="1024" autocomplete="new-password" required>
+                    </div>
+                </div>
 
                 <button type="submit" class="primary-button">Create account</button>
                 <button type="button" class="text-button" id="backFromCreateAccount">Back to login</button>

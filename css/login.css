@@ -5,12 +5,13 @@
 
 body {
     min-height: 100vh;
+    min-height: 100svh;
     margin: 0;
-    padding: 24px;
+    padding: 0 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #1565c0;
+    background: #eef4fa;
 }
 
 .login-container {
@@ -19,14 +20,16 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 16px 0;
 }
 
 .login-box {
-    width: min(100%, 420px);
-    padding: 36px;
+    width: min(100%, 370px);
+    padding: 22px 24px;
+    border: 1px solid #e2e8f0;
     border-radius: 12px;
     background: #fff;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 12px 32px rgba(15, 38, 69, 0.12);
 }
 
 .login-box h1,
@@ -37,26 +40,52 @@ body {
 .login-box h1 {
     margin: 0;
     color: #1565c0;
+    font-size: 1.5rem;
 }
 
 .login-box > h2 {
-    margin: 6px 0 25px;
-    font-size: 18px;
+    margin: 4px 0 14px;
+    font-size: 16px;
 }
 
 .login-box form h2 {
-    margin: 22px 0 8px;
-    font-size: 20px;
+    margin: 0 0 6px;
+    font-size: 19px;
 }
 
 .login-box form p {
     color: #475569;
-    line-height: 1.5;
+    line-height: 1.4;
+}
+
+.account-form-heading {
+    margin-bottom: 10px;
+}
+
+.account-form-heading p {
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+.account-form-fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 12px;
+}
+
+.account-field label {
+    margin-top: 0;
+}
+
+.account-field input,
+.account-field select {
+    margin-top: 4px;
+    padding: 9px 10px;
 }
 
 .login-hint {
-    margin: 12px 0 0;
-    font-size: 0.9rem;
+    margin: 8px 0 0;
+    font-size: 0.85rem;
 }
 
 .auth-links {
@@ -70,17 +99,30 @@ body {
     display: none;
 }
 
+.login-box #createAccountForm {
+    max-height: min(560px, calc(100svh - 150px));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+}
+
+.login-box #createAccountForm .primary-button,
+.login-box #createAccountForm > .text-button,
+.login-box #createAccountForm > .form-message {
+    grid-column: 1 / -1;
+}
+
 .login-box label {
     display: block;
-    margin-top: 15px;
+    margin-top: 10px;
     font-weight: 700;
 }
 
 .login-box input,
 .login-box select {
     width: 100%;
-    margin-top: 8px;
-    padding: 12px;
+    margin-top: 6px;
+    padding: 10px 11px;
     border: 1px solid #94a3b8;
     border-radius: 6px;
     background: #fff;
@@ -95,8 +137,9 @@ body {
 
 .primary-button {
     width: 100%;
-    margin-top: 22px;
-    padding: 14px;
+    min-height: 42px;
+    margin-top: 14px;
+    padding: 10px 12px;
     border: 0;
     border-radius: 6px;
     background: #1565c0;
@@ -118,8 +161,8 @@ body {
 .text-button {
     display: block;
     width: fit-content;
-    margin: 18px auto 0;
-    padding: 4px;
+    margin: 8px auto 0;
+    padding: 3px;
     border: 0;
     background: transparent;
     color: #1565c0;
@@ -129,8 +172,8 @@ body {
 }
 
 .form-message {
-    min-height: 1.4em;
-    margin: 12px 0 0;
+    min-height: 1.2em;
+    margin: 8px 0 0;
     color: #334155;
     line-height: 1.4;
 }
@@ -145,10 +188,65 @@ body {
 
 @media (max-width: 480px) {
     body {
-        padding: 16px;
+        padding: 0 12px;
     }
 
     .login-box {
-        padding: 26px 22px;
+        padding: 20px 18px;
+    }
+
+    .account-form-fields {
+        grid-template-columns: 1fr;
+        gap: 7px;
+    }
+}
+
+@media (max-height: 680px) {
+    .login-container {
+        padding: 8px 0;
+    }
+
+    .login-box {
+        padding: 16px 20px;
+    }
+
+    .login-box > h2 {
+        margin-bottom: 10px;
+    }
+
+    .login-box label {
+        margin-top: 7px;
+    }
+
+    .login-box input,
+    .login-box select {
+        margin-top: 4px;
+        padding: 8px 10px;
+    }
+
+    .primary-button {
+        min-height: 38px;
+        margin-top: 10px;
+        padding: 8px 10px;
+    }
+
+    .text-button {
+        margin-top: 5px;
+    }
+
+    .form-message {
+        margin-top: 5px;
+    }
+
+    .login-box #createAccountForm {
+        max-height: calc(100svh - 130px);
+    }
+
+    .account-form-fields {
+        gap: 6px 10px;
+    }
+
+    .account-form-heading {
+        margin-bottom: 7px;
     }
 }

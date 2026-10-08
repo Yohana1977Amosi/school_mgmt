@@ -6,7 +6,7 @@ font-family:Arial,sans-serif;
 }
 
 body{
-background: rgb(240, 200, 40);
+background: #eef4fa;
 font-family: Arial, Helvetica, sans-serif;
 color: #1f2937;
 min-height:100vh;
@@ -44,7 +44,7 @@ font-weight:bold;
 
 .hero{
 width:100%;
-min-height:500px;
+min-height:clamp(350px, 55vh, 460px);
 background:#0066cc;
 color:white;
 display:flex;
@@ -56,20 +56,23 @@ padding:20px;
 }
 
 .hero h1{
-font-size:45px;
-margin-bottom:20px;
+max-width:1000px;
+font-size:clamp(32px, 4vw, 45px);
+line-height:1.12;
+margin-bottom:16px;
 }
 
 .hero p{
-font-size:20px;
-margin-bottom:30px;
+font-size:18px;
+line-height:1.55;
+margin-bottom:24px;
 max-width:800px;
 }
 
 .btn{
 background:white;
 color:#004080;
-padding:15px 35px;
+padding:13px 30px;
 text-decoration:none;
 font-weight:bold;
 border-radius:5px;
@@ -79,15 +82,15 @@ border-radius:5px;
 width:100%;
 flex:1;
 background:#eef4fa;
-padding:50px;
+padding:36px clamp(20px, 5vw, 50px);
 text-align:center;
 }
 
 .cards{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));
-gap:20px;
-margin-top:40px;
+gap:16px;
+margin-top:26px;
 width:100%;
 max-width:1200px;
 margin-left:auto;
@@ -96,7 +99,7 @@ margin-right:auto;
 
 .card{
 background:white;
-padding:30px;
+padding:22px;
 border-radius:10px;
 box-shadow:0 0 10px rgba(0,0,0,.2);
 }
@@ -117,11 +120,6 @@ img{
     max-width: 100%;
     display: block;
 }
-.amaze{
-    
-    border-bottom: red;
-}
-
 @media (max-width: 700px) {
     header {
         justify-content: center;
@@ -143,6 +141,14 @@ img{
     }
 
     .features {
-        padding: 35px 20px;
+        padding: 30px 18px;
+    }
+
+    .hero {
+        min-height: 360px;
+    }
+
+    .hero p {
+        font-size: 17px;
     }
 }
