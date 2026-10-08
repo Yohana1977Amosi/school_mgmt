@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact the Smart School Management System team with a question or request.">
+    <title>Contact | Smart School Management System</title>
+    <link rel="stylesheet" href="css/site-nav.css">
+    <link rel="stylesheet" href="css/contact.css">
+    <script src="js/site-nav.js" defer></script>
+    <script src="js/contact.js" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <a class="site-brand" href="index.html">Smart School <span>Management System</span></a>
+        <nav class="site-nav" aria-label="Main navigation">
+            <a href="index.html" data-nav="home">Home</a>
+            <a href="about.html" data-nav="about">About</a>
+            <a href="contact.html" data-nav="contact" aria-current="page">Contact</a>
+            <a href="login.html" data-nav="login">Login</a>
+            <a href="admin/dashboard.html" data-nav="dashboard">Dashboard</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="contact-hero">
+            <p class="eyebrow">We are here to help</p>
+            <h1>Let’s start a conversation.</h1>
+            <p>Ask a question, share feedback, or tell us how we can support your school.</p>
+        </section>
+
+        <section class="contact-layout" aria-label="Contact the school">
+            <div class="contact-details">
+                <p class="eyebrow eyebrow--blue">Get in touch</p>
+                <h2>Send a message to the school office.</h2>
+                <p class="contact-details__copy">Complete the form and your message will be saved for the school office to review. Please do not include passwords or sensitive student information.</p>
+
+                <div class="contact-note">
+                    <span class="contact-note__icon" aria-hidden="true">✉</span>
+                    <div>
+                        <h3>School enquiries</h3>
+                        <p>For general questions, account support, or feedback, use the secure form on this page.</p>
+                    </div>
+                </div>
+                <div class="contact-note">
+                    <span class="contact-note__icon" aria-hidden="true">↗</span>
+                    <div>
+                        <h3>Need your account?</h3>
+                        <p>Sign in to access school tools, or contact the school office if you need help getting started.</p>
+                        <a href="login.html">Go to login <span aria-hidden="true">→</span></a>
+                    </div>
+                </div>
+            </div>
+
+            <form class="contact-form" id="contactForm">
+                <div class="contact-form__heading">
+                    <h2>Write to us</h2>
+                    <p>Fields marked with <span aria-hidden="true">*</span> are required.</p>
+                </div>
+
+                <label for="contactName">Your name <span aria-hidden="true">*</span></label>
+                <input id="contactName" name="name" type="text" autocomplete="name" minlength="2" maxlength="100" required>
+
+                <label for="contactEmail">Email address <span aria-hidden="true">*</span></label>
+                <input id="contactEmail" name="email" type="email" autocomplete="email" maxlength="254" required>
+
+                <label for="contactSubject">Subject <span aria-hidden="true">*</span></label>
+                <input id="contactSubject" name="subject" type="text" minlength="3" maxlength="120" required>
+
+                <label for="contactMessage">Message <span aria-hidden="true">*</span></label>
+                <textarea id="contactMessage" name="message" rows="5" minlength="10" maxlength="5000" required></textarea>
+
+                <div class="contact-form__trap" aria-hidden="true">
+                    <label for="contactWebsite">Leave this field empty</label>
+                    <input id="contactWebsite" name="website" type="text" tabindex="-1" autocomplete="off">
+                </div>
+
+                <button class="contact-submit" type="submit">
+                    <span>Send message</span>
+                    <span aria-hidden="true">→</span>
+                </button>
+                <p class="contact-status" id="contactStatus" role="status" aria-live="polite"></p>
+            </form>
+        </section>
+
+        <section class="contact-faq" aria-labelledby="faq-heading">
+            <div>
+                <p class="eyebrow eyebrow--blue">Quick answers</p>
+                <h2 id="faq-heading">A few helpful notes.</h2>
+            </div>
+            <div class="faq-list">
+                <details>
+                    <summary>Who can use the school management system?</summary>
+                    <p>Access depends on the role assigned by the school. If you need an account or help with access, contact your school office.</p>
+                </details>
+                <details>
+                    <summary>How do I get help with my account?</summary>
+                    <p>Use the password recovery option on the login page, or send the school office a message using the form above.</p>
+                </details>
+                <details>
+                    <summary>Is the contact form ready to receive messages?</summary>
+                    <p>Messages are saved in the school system database. A staff member can review them from the protected Messages page in the dashboard.</p>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <footer class="contact-footer">
+        <p>© 2026 Smart School Management System. All rights reserved.</p>
+        <a href="about.html">Learn about the system</a>
+    </footer>
+</body>
+</html>

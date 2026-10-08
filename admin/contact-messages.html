@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Messages | Smart School Management System</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/contact-messages.css">
+    <script src="../js/contact-messages.js" defer></script>
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">🎓</div>
+                <div>
+                    <h2>School MS</h2>
+                    <small>Management System</small>
+                </div>
+            </div>
+            <nav class="menu" aria-label="Main navigation">
+                <a href="dashboard.html" class="menu-item"><span>📊</span>Dashboard</a>
+                <a href="students.html" class="menu-item"><span>👨‍🎓</span>Students</a>
+                <a href="teachers.html" class="menu-item"><span>👨‍🏫</span>Teachers</a>
+                <a href="classes.html" class="menu-item"><span>🏫</span>Classes</a>
+                <a href="attendance.html" class="menu-item"><span>📝</span>Attendance</a>
+                <a href="contact-messages.html" class="menu-item active" aria-current="page"><span>✉</span>Messages</a>
+            </nav>
+            <div class="logout">
+                <a href="/logout">🚪 Logout</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div class="top-left">
+                    <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+                    <div>
+                        <h1>Contact Messages</h1>
+                        <p>Messages submitted through the public contact form</p>
+                    </div>
+                </div>
+            </header>
+            <section class="content">
+                <div class="messages-panel">
+                    <div class="messages-heading">
+                        <div>
+                            <h2>School enquiries</h2>
+                            <p id="messageCount">Loading messages...</p>
+                        </div>
+                        <button class="refresh-button" id="refreshMessages" type="button">Refresh</button>
+                    </div>
+                    <p class="messages-status" id="messagesStatus" role="status" aria-live="polite"></p>
+                    <div class="messages-empty" id="messagesEmpty" hidden>
+                        No contact messages have been submitted yet.
+                    </div>
+                    <div class="messages-list" id="messagesList"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="../js/dashboard.js"></script>
+</body>
+</html>

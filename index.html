@@ -5,20 +5,19 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <title>Smart School Management System</title>
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/site-nav.css">
     </head>
-    <body>
+    <body>    cd "C:\Users\user\Documents\school_mgmt\school_mgmt"    C:\Users\user\Documents\school_mgmt\school_mgmt    C:\Users\user\Documents\school_mgmt\school_mgmt
         <header>
             <div class="logo">
                 <h2>SMART SCHOOL MANAGEMENT SYSTEM</h2>
             </div>
-            <nav>
-                <ul>
-                    <li><a href="index.html" class="amaze">Home</a></li>
-                     <li><a href="about.html">About</a></li>
-                      <li><a href="contact.html">Contact</a></li>
-                       <li><a href="login.html">Login</a></li>
-                        <li><a href="admin/dashboard.html">Dashboard</a></li>
-                </ul>
+            <nav class="site-nav" aria-label="Main navigation">
+                <a href="index.html" data-nav="home" aria-current="page">Home</a>
+                <a href="about.html" data-nav="about">About</a>
+                <a href="contact.html" data-nav="contact">Contact</a>
+                <a href="login.html" data-nav="login">Login</a>
+                <a href="admin/dashboard.html" data-nav="dashboard">Dashboard</a>
             </nav>
         </header>
         <section class="hero">
@@ -98,5 +97,6 @@ All Rights Reserved.
 
 </footer>
 
+        <script src="js/site-nav.js" defer></script>
     </body>
 </html>

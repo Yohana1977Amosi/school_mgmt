@@ -62,8 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 method: "POST",
                 body: {
                     username: document.getElementById("username").value,
-                    password: document.getElementById("password").value,
-                    userType: document.getElementById("userType").value
+                    password: document.getElementById("password").value
                 }
             });
 
@@ -137,11 +136,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
             createAccountForm.reset();
             document.getElementById("username").value = result.username;
-            document.getElementById("userType").value = result.userType;
             createAccountForm.hidden = true;
             loginForm.hidden = false;
             loginLinks.hidden = false;
-            setMessage(loginMessage, "Account created. Sign in with your new username and password.", "success");
+            setMessage(
+                loginMessage,
+                "You have created your account successfully. Sign in with your username and password.",
+                "success"
+            );
             document.getElementById("password").focus();
         } catch (error) {
             setMessage(

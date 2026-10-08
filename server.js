@@ -47,6 +47,15 @@ database.exec(`
         expires_at INTEGER NOT NULL
     );
 
+    CREATE TABLE IF NOT EXISTS contact_messages (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        email TEXT NOT NULL,
+        subject TEXT NOT NULL,
+        message TEXT NOT NULL,
+        created_at INTEGER NOT NULL
+    );
+
     CREATE INDEX IF NOT EXISTS password_reset_tokens_user_id
         ON password_reset_tokens(user_id);
     CREATE INDEX IF NOT EXISTS auth_sessions_user_id
@@ -251,13 +260,97 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "index.html"));
 });
 
+app.get("/index.html", (req, res) => {
+    res.sendFile(path.join(__dirname, "index.html"));
+});
+
 app.get("/login.html", (req, res) => {
     res.sendFile(path.join(__dirname, "login.html"));
+});
+
+app.get("/about.html", (req, res) => {
+    res.sendFile(path.join(__dirname, "about.html"));
+});
+
+app.get("/contact.html", (req, res) => {
+    res.sendFile(path.join(__dirname, "contact.html"));
 });
 
 app.get("/reset-password.html", (req, res) => {
     res.sendFile(path.join(__dirname, "reset-password.html"));
 });
+
+app.post("/api/contact", jsonRateLimit(5), (req, res) => {
+    const { name, email, subject, message, website } = req.body || {};
+    const normalizedName = String(name || "").trim();
+    const normalizedEmail = String(email || "").trim().toLowerCase();
+    const normalizedSubject = String(subject || "").trim().replace(/[\r\n]+/g, " ");
+    const normalizedMessage = String(message || "").trim();
+
+    if (String(website || "").trim()) {
+        res.status(400).json({ error: "Unable to submit this message." });
+        return;
+    }
+
+    if (normalizedName.length < 2 || normalizedName.length > 100) {
+        res.status(400).json({ error: "Enter a name between 2 and 100 characters." });
+        return;
+    }
+
+    if (
+        normalizedEmail.length > 254 ||
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)
+    ) {
+        res.status(400).json({ error: "Enter a valid email address." });
+        return;
+    }
+
+    if (normalizedSubject.length < 3 || normalizedSubject.length > 120) {
+        res.status(400).json({ error: "Enter a subject between 3 and 120 characters." });
+        return;
+    }
+
+    if (normalizedMessage.length < 10 || normalizedMessage.length > 5000) {
+        res.status(400).json({ error: "Enter a message between 10 and 5,000 characters." });
+        return;
+    }
+
+    try {
+        database.prepare(`
+            INSERT INTO contact_messages (name, email, subject, message, created_at)
+            VALUES (?, ?, ?, ?, ?)
+        `).run(
+            normalizedName,
+            normalizedEmail,
+            normalizedSubject,
+            normalizedMessage,
+            Date.now()
+        );
+        res.status(201).json({
+            message: "Your message has been saved. The school office can review it."
+        });
+    } catch (error) {
+        console.error("Contact form message could not be saved:", error);
+        res.status(500).json({
+            error: "Your message could not be saved right now. Please try again later."
+        });
+    }
+});
+
+app.get(
+    "/api/admin/contact-messages",
+    requireLogin,
+    requireStaffRole,
+    (req, res) => {
+        const messages = database.prepare(`
+            SELECT id, name, email, subject, message, created_at AS createdAt
+            FROM contact_messages
+            ORDER BY created_at DESC, id DESC
+        `).all();
+
+        res.json({ messages });
+    }
+);
 
 app.use(
     "/admin",
@@ -307,17 +400,17 @@ app.post("/api/auth/register", jsonRateLimit(5), (req, res) => {
 });
 
 app.post("/api/auth/login", jsonRateLimit(10), (req, res) => {
-    const { username, password, userType } = req.body || {};
+    const { username, password } = req.body || {};
 
     if (
         typeof username !== "string" ||
         typeof password !== "string" ||
-        typeof userType !== "string" ||
+        !username.trim() ||
+        !password ||
         username.length > 64 ||
-        password.length > 1024 ||
-        !ROLES.includes(userType)
+        password.length > 1024
     ) {
-        res.status(400).json({ error: "Enter your username, password, and user type." });
+        res.status(400).json({ error: "Enter your username and password." });
         return;
     }
 
@@ -327,12 +420,10 @@ app.post("/api/auth/login", jsonRateLimit(10), (req, res) => {
         WHERE username = ? COLLATE NOCASE
     `).get(username.trim());
 
-    const valid = user &&
-        user.role === userType &&
-        verifyPassword(password, user.password_hash);
+    const valid = user && verifyPassword(password, user.password_hash);
 
     if (!valid) {
-        res.status(401).json({ error: "Username, password, or user type is incorrect." });
+        res.status(401).json({ error: "Username or password is incorrect." });
         return;
     }
 
