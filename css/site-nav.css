@@ -1,3 +1,14 @@
+/* Huweka padding ndani ya upana uliowekwa ili ukurasa usipanuke pembeni. */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --site-header-background: #004080;
+}
+
 .site-header {
     width: 100%;
     display: flex;
@@ -5,7 +16,7 @@
     justify-content: space-between;
     gap: 18px 32px;
     padding: 14px clamp(18px, 5vw, 64px);
-    background: #004080;
+    background: var(--site-header-background);
     color: #fff;
 }
 

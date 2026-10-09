@@ -23,7 +23,8 @@ body {
     overflow: hidden;
     min-height: 430px;
     padding: 70px clamp(24px, 9vw, 132px);
-    background: linear-gradient(120deg, #063c77 0%, #0755a6 62%, #1684bd 100%);
+    /* Hero inaanza na rangi ya header kisha hubadilika taratibu kuwa bluu. */
+    background: linear-gradient(120deg, var(--site-header-background) 0%, #0755a6 62%, #1684bd 100%);
     color: #fff;
 }
 

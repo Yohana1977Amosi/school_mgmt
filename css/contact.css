@@ -16,7 +16,8 @@ body {
 
 .contact-hero {
     padding: 62px 24px 58px;
-    background: linear-gradient(120deg, #063c77, #0873b8);
+    /* Hero inaanza na rangi ya header kisha hubadilika taratibu kuwa bluu. */
+    background: linear-gradient(120deg, var(--site-header-background), #0873b8);
     color: #fff;
     text-align: center;
 }
@@ -120,7 +121,8 @@ body {
 }
 
 .contact-form {
-    padding: clamp(22px, 4vw, 38px);
+    /* Nafasi fupi zaidi hufanya form iwe ndogo bila kubana sehemu za kujaza. */
+    padding: clamp(18px, 2.5vw, 28px);
     border: 1px solid var(--contact-border);
     border-radius: 14px;
     background: #fff;
@@ -128,7 +130,7 @@ body {
 }
 
 .contact-form__heading {
-    margin-bottom: 23px;
+    margin-bottom: 16px;
 }
 
 .contact-form__heading h2 {
@@ -144,8 +146,8 @@ body {
 
 .contact-form label {
     display: block;
-    margin: 17px 0 7px;
-    font-size: 0.91rem;
+    margin: 12px 0 5px;
+    font-size: 0.88rem;
     font-weight: 700;
 }
 
@@ -157,8 +159,8 @@ body {
 .contact-form input,
 .contact-form textarea {
     width: 100%;
-    min-height: 46px;
-    padding: 11px 12px;
+    min-height: 42px;
+    padding: 9px 11px;
     border: 1px solid #bdcbd9;
     border-radius: 7px;
     background: #fff;
@@ -167,7 +169,7 @@ body {
 }
 
 .contact-form textarea {
-    min-height: 135px;
+    min-height: 100px;
     resize: vertical;
 }
 
@@ -188,10 +190,10 @@ body {
 .contact-submit {
     display: flex;
     width: 100%;
-    min-height: 49px;
+    min-height: 44px;
     align-items: center;
     justify-content: space-between;
-    margin-top: 22px;
+    margin-top: 16px;
     padding: 0 17px;
     border: 0;
     border-radius: 7px;
